@@ -269,16 +269,18 @@
             socket = new WebSocket(url);
             socket.onopen = function () {
                 //XXX DONE: TODO What are you going to do here?
-                const socketInstance = new WebSocket(url);
-                socketInstance.onopen = () => {
-                    
-                    // I cannot figure it out why, but send is sending data once
-                    // and then it closes. I got a advice from Jeff to create a 
-                    // separate websocket everytime inside that sends the msg and 
-                    // closes. (Credit reference to Jeff is mentioned in readme) 
-                    socketInstance.send('CMPUT 404 Assignment 5 World')
-                    socketInstance.close()
-                }
+                socketInstance.send('CMPUT 404 Assignment 5 World')
+                socketInstance.close()
+                // const socketInstance = new WebSocket(url);
+                // socketInstance.onopen = () => {
+
+                //     // I cannot figure it out why, but send is sending data once
+                //     // and then it closes. I got a advice from a friend to create a 
+                //     // separate websocket everytime inside that sends the msg and 
+                //     // closes. (Credit reference to the friend is mentioned in readme) 
+                //     socketInstance.send('CMPUT 404 Assignment 5 World')
+                //     socketInstance.close()
+                // }
 
             };
             socket.onerror = function (msg) {

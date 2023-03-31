@@ -61,6 +61,17 @@ class World:
         return self.space
 
 
+myWorld = World()
+
+clients = list()
+
+def send_all(msg):
+    for client in clients:
+        client.put( msg )
+
+def send_all_json(obj):
+    send_all( json.dumps(obj) )
+
 class Client:
     def __init__(self):
         self.queue = queue.Queue()
@@ -72,23 +83,10 @@ class Client:
         return self.queue.get()
 
 
-myWorld = World()
-
-clients = list()
-
-
-def send_all(msg):
-    for client in clients:
-        client.put(json.dumps(msg))
-
-
 def set_listener(entity, data):
     ''' do something with the update ! '''
     # XXX: TODO this is left.
-    temp = {}
-    temp[entity] = data
-    send_all(temp)
-
+    send_all_json({entity:data})
     # myWorld.add_set_listener(data)
 
 
