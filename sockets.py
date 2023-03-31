@@ -65,12 +65,15 @@ myWorld = World()
 
 clients = list()
 
+
 def send_all(msg):
     for client in clients:
-        client.put( msg )
+        client.put(msg)
+
 
 def send_all_json(obj):
-    send_all( json.dumps(obj) )
+    send_all(json.dumps(obj))
+
 
 class Client:
     def __init__(self):
@@ -86,7 +89,7 @@ class Client:
 def set_listener(entity, data):
     ''' do something with the update ! '''
     # XXX: TODO this is left.
-    send_all_json({entity:data})
+    send_all_json({entity: data})
     # myWorld.add_set_listener(data)
 
 
@@ -111,7 +114,7 @@ def read_ws(ws, client):
                 packet = json.loads(msg)
                 # send_all_json( packet )
                 for data in packet:
-                    myWorld.update(data, packet[data])
+                    myWorld.set(data, packet[data])
             else:
                 break
     except:
@@ -133,7 +136,7 @@ def subscribe_socket(ws):
         while True:
             # block here
             msg = client.get()
-            print("Got a message!")
+            #print("Got a message!")
             ws.send(msg)
     except Exception as e:  # WebSocketError as e:
         print("WS Error %s" % e)
@@ -158,7 +161,14 @@ def flask_post_json():
 @app.route("/entity/<entity>", methods=['POST', 'PUT'])
 def update(entity):
     '''update the entities via this interface'''
-    return None
+    """
+    HEAVILY INFLUENCED BY IDEA FROM A CLASSMATE (Jeff), credit mentioned in 
+    readme. 
+    """
+    data = flask_post_json
+    for key in data:
+        myWorld.update(entity, key, data[key])
+    return jsonify(myWorld.get(entity))
 
 
 @app.route("/world", methods=['POST', 'GET'])
@@ -177,7 +187,7 @@ def get_entity(entity):
 def clear():
     '''Clear the world out!'''
     myWorld.clear()
-    return world()
+    return json.dumps(myWorld.world())
 
 
 if __name__ == "__main__":

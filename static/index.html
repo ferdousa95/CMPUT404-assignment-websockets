@@ -122,7 +122,7 @@
             world[entity] = data;
             //drawNextFrame(); // (but should we?) Your question raised doubt in me, 
             // But I don't know what else to do.
-            //XXX: Send a XHTML Request that updates the entity you just modified!
+            //XXX DONE: Send a XHTML Request that updates the entity you just modified!
             temp = {};
             temp[entity] = data;
             socket.send(JSON.stringify(temp))
@@ -235,17 +235,17 @@
         // Add the application specific mouse listeners!
         //XXX: TODO Make these prettier!
         mouse.mousedowners.push(function (x, y, clicked, e) {
-            addEntityWithoutName({ 'x': x, 'y': y, 'colour': 'blue' });
+            addEntityWithoutName({ 'x': x, 'y': y, 'colour': 'cyan', 'fillColor': 'white', 'strokeWidth': 10 });
         });
 
         mouse.mouseuppers.push(function (x, y, clicked, e) {
-            addEntityWithoutName({ 'x': x, 'y': y, 'colour': 'red' });
+            addEntityWithoutName({ 'x': x, 'y': y, 'colour': 'red', 'fillColor': 'white', 'strokeWidth': 10 });
         });
 
         mouse.mousedraggers.push(function (x, y, clicked, e) {
             addEntityWithoutName({
                 'x': x, 'y': y, 'colour': 'green',
-                'radius': 10
+                'radius': 10, 'fillColor': 'white', 'strokeWidth': 5
             });
         });
 
@@ -254,15 +254,6 @@
             drawFrame();
         }
 
-        // function updateWorld(data) {
-        //     /*
-        //     This function clears the previous data in the world and then updates it 
-        //     with json data passed from the parameter. 
-        //     */
-        //     world = {}
-        //     world = data;
-        //     drawFrame();
-        // }
 
         function wsSetup() {
             var url = "ws://" + host + "/subscribe";
@@ -271,16 +262,7 @@
                 //XXX DONE: TODO What are you going to do here?
                 socketInstance.send('CMPUT 404 Assignment 5 World')
                 socketInstance.close()
-                // const socketInstance = new WebSocket(url);
-                // socketInstance.onopen = () => {
 
-                //     // I cannot figure it out why, but send is sending data once
-                //     // and then it closes. I got a advice from a friend to create a 
-                //     // separate websocket everytime inside that sends the msg and 
-                //     // closes. (Credit reference to the friend is mentioned in readme) 
-                //     socketInstance.send('CMPUT 404 Assignment 5 World')
-                //     socketInstance.close()
-                // }
 
             };
             socket.onerror = function (msg) {
@@ -290,7 +272,6 @@
                 try {
                     debug("WebSocket Recv:" + msg.data);
                     //XXX DONE: TODO What are you going to do here? 
-                    // updateWorld(JSON.parse(msg.data)); #Error
                     let data = JSON.parse(msg.data)
                     for (let key in data) {
                         world[key] = data[key]
