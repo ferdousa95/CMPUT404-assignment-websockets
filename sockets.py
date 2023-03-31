@@ -59,13 +59,15 @@ class World:
     def world(self):
         return self.space
 
-myWorld = World()        
+myWorld = World()   
+
+clients = list()     
 
 def set_listener( entity, data ):
     ''' do something with the update ! '''
     # TODO: this is left. 
-    # info = dict()
-    # info[entity] = data
+    info = dict()
+    info[entity] = data
     
 
     
@@ -81,7 +83,20 @@ def hello():
 def read_ws(ws,client):
     '''A greenlet function that reads from the websocket and updates the world'''
     # XXX: TODO IMPLEMENT ME
-    return None
+    try:
+        while True:
+            msg = ws.receive()
+            print("WS RECV: %s" % msg)
+            if (msg is not None):
+                '''Do nothing'''
+                packet = json.loads(msg)
+                #send_all_json( packet )
+                for data in packet:
+                    myWorld.set(data, packet[data])
+            else:
+                break
+    except:
+        '''Done'''
 
 @sockets.route('/subscribe')
 def subscribe_socket(ws):
