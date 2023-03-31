@@ -271,6 +271,7 @@
                 //XXX DONE: TODO What are you going to do here?
                 const socketInstance = new WebSocket(url);
                 socketInstance.onopen = () => {
+                    
                     // I cannot figure it out why, but send is sending data once
                     // and then it closes. I got a advice from Jeff to create a 
                     // separate websocket everytime inside that sends the msg and 
