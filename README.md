@@ -59,3 +59,34 @@ Contributors
 * Mark Galloway
 * Abram Hindle
 * Cole Mackenzie
+
+* Ferdous Adit
+* 1538839
+
+Sources/Credit
+===============
+* https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications
+Writing WebSocket client applications
+mdn docs
+
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+Math.random()
+mdn docs
+
+* https://stackoverflow.com/a/23095731
+Generate random RGB
+stackoverflow 
+
+* https://github.com/abramhindle/WebSocketsExamples.git
+Professor's websocket example
+
+* https://github.com/yuchieh8968
+Jeff (Classmate)
+He helped me a lot with the sockets.py, especially the update()
+
+* https://github.com/curtiskennedy
+Curtis (Classmate)
+We discussed about how to work on the index.html
+
+
+
